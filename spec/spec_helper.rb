@@ -20,18 +20,22 @@ ENV["RAILS_ENV"] ||= 'test'
 require File.expand_path("../dummy/config/environment", __FILE__)
 require 'rspec/rails'
 require 'rspec/autorun'
-require 'factory_girl_rails'
+require 'factory_girl'
+# require '../factories/workflow_factory'
+
 
 Rails.backtrace_cleaner.remove_silencers!
 
 # Load support files
 Dir["#{File.dirname(__FILE__)}/support/**/*.rb"].each { |f| require f }
-
+# Load factories
+Dir["#{File.dirname(__FILE__)}/factories/**/*.rb"].each { |f| require f }
 
 RSpec.configure do |config|
   config.include Decider::Engine.routes.url_helpers
   config.use_transactional_fixtures = true
   config.infer_base_class_for_anonymous_controllers = false
+  config.include FactoryGirl::Syntax::Methods
   config.order = "random"
 
   # rspec-expectations config goes here. You can use an alternate
