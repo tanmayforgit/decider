@@ -18,6 +18,7 @@ module Decider
 
       def copy_migrations
         migration_template "create_workflow.rb", "db/migrate/create_workflow.rb"
+        migration_template "create_operation.rb", "db/migrate/create_operation.rb"
         # migration_template "create_something_else.rb", "db/migrate/create_something_else.rb"
       end
     end

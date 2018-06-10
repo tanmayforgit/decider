@@ -97,5 +97,56 @@ module Decider
         end
       end
     end
+
+    describe 'Validations' do
+      describe 'Creation' do
+        let(:workflow_name) { 'Some Name' }
+        let(:initial_operation_name) { 'First operation of the workflow' }
+
+        context 'Initial operation name is not passed' do
+          let(:workflow_creation_params) { { name: workflow_name } }
+          let(:workflow_obj) { Decider::Workflow.new(workflow_creation_params) }
+          subject { workflow_obj.valid? }
+          it 'Adds proper error to workflow object' do
+            subject
+            expect(workflow_obj.errors[:initial_operation_name]).to include("Please set initial_operation_name")
+          end
+        end
+
+        context 'initial_operation_name is passed' do
+          let(:workflow_creation_params) { { name: workflow_name, initial_operation_name: initial_operation_name } }
+          let(:workflow_obj) { Decider::Workflow.new(workflow_creation_params) }
+
+          subject { workflow_obj.valid? }
+          it 'Returns true' do
+            expect(subject).to be_truthy
+          end
+        end
+      end
+    end
+
+
+    describe 'Workflow object persistance' do
+      let(:workflow_name) { 'Some Name' }
+      let(:initial_operation_name) { 'First operation of the workflow' }
+
+      context 'Workflow object is valid' do
+        describe 'Creation' do
+          let(:workflow_creation_params) { { name: workflow_name, initial_operation_name: initial_operation_name } }
+          let(:workflow_obj) { Decider::Workflow.new(workflow_creation_params) }
+
+          subject { workflow_obj.save }
+          it 'Persists workfow record' do
+            expect{subject}.to change{Decider::Workflow.where(name: workflow_name).count}.by(1)
+          end
+
+          subject { workflow_obj.save }
+          it 'Creates initial operation record' do
+            expect{subject}.to change{Decider::Operation.count}.by(1)
+            expect(workflow_obj.reload.initial_operation.name).to eq(initial_operation_name)
+          end
+        end
+      end
+    end
   end
 end

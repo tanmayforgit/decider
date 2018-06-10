@@ -1,4 +1,4 @@
-class CreateWorkflow < ActiveRecord::Migration
+class CreateWorkflow < ActiveRecord::Migration[5.0]
   def self.up
     create_table :decider_workflows do |t|
       t.string  :name

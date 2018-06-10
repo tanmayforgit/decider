@@ -10,7 +10,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_05_12_075118) do
+ActiveRecord::Schema.define(version: 2018_06_09_110345) do
+
+  create_table "decider_operations", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.string "name"
+    t.integer "after_success_operation_id"
+    t.integer "after_failure_operation_id"
+    t.integer "workflow_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["after_failure_operation_id"], name: "index_decider_operations_on_after_failure_operation_id"
+    t.index ["after_success_operation_id"], name: "index_decider_operations_on_after_success_operation_id"
+    t.index ["workflow_id"], name: "index_decider_operations_on_workflow_id"
+  end
 
   create_table "decider_workflows", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name"
