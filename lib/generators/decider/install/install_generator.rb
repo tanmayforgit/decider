@@ -21,6 +21,10 @@ module Decider
         migration_template "create_operation.rb", "db/migrate/create_operation.rb"
         # migration_template "create_something_else.rb", "db/migrate/create_something_else.rb"
       end
+
+      def copy_operations_yml
+        copy_file "operations.yml", "config/operations.yml"
+      end
     end
   end
 end

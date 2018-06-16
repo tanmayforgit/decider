@@ -1,6 +1,8 @@
 require 'pry'
 module Decider
   class Workflow < ApplicationRecord
+    include NameBasedConstantable
+
     attr_accessor :context, :initial_operation_name
     has_many :operations
     after_initialize :set_initial_creation_flag
