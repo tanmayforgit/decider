@@ -5,7 +5,7 @@ module Decider
       subject { operation.operation_implementer_klass_name }
 
       it 'Returns workflow namespaced klass name' do
-        expect(subject).to eq('DoingSomething::SomeOperation')
+        expect(subject).to eq('DoingSomethingWorkflow::SomeOperation')
       end
     end
 
