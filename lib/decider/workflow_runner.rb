@@ -17,6 +17,7 @@ module Decider
       while !operation_to_perform.nil? && !operations_performed.include?(operation_to_perform.name) # && safety_count > 0
         operation_klass_instance = operation_to_perform.build_implementer(@context)
         if operation_klass_instance.to_abandon?
+          operation_klass_instance.perform_abandonment
           break
         end
 

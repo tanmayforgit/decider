@@ -44,7 +44,7 @@ module Decider
     describe '#run' do
       let(:result_obj) { double }
       let(:context) { double }
-      let(:abandoning_operation_implementer) { double(to_abandon?: true) }
+      let(:abandoning_operation_implementer) { double(to_abandon?: true, perform_abandonment: true) }
       let(:failing_operation_implementer) { double(to_fail?: true, to_abandon?: false, perform_failure: true) }
       let(:succeeding_operation_implementer) { double(to_fail?: false, to_abandon?: false, perform: true) }
       let(:workflow) { double(initial_operation: initial_operation, result_obj: result_obj) }
@@ -58,13 +58,14 @@ module Decider
       subject { WorkflowRunner.new(workflow, context).run }
 
       context 'One of the operation abandons' do
-        it 'Runs the operations as per success and failure until one of the operation abandons' do
+        it 'Runs the operations as per success and failure until one of the operation abandons and runs perform abandonment method on abandoning operation' do
           allow(initial_operation).to receive(:build_implementer).with(context) { succeeding_operation_implementer }
           allow(op1).to receive(:build_implementer).with(context) { abandoning_operation_implementer }
           expect(succeeding_operation_implementer).to receive(:perform)
           expect(op1).not_to receive(:perform)
           expect(op3).not_to receive(:build_implementer)
           expect(op4).not_to receive(:build_implementer)
+          expect(abandoning_operation_implementer).to receive(:perform_abandonment)
 
           subject
         end
