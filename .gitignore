@@ -10,3 +10,5 @@ spec/dummy/storage/
 custom_plan.rb
 zeus.json
 spec/dummy/tmp/
+spec/dummy/config/operations.yml
+spec/dummy/workflows/
