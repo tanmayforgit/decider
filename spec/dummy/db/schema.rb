@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_06_09_110345) do
+ActiveRecord::Schema.define(version: 2018_07_08_033356) do
 
   create_table "decider_operations", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name"
@@ -27,8 +27,10 @@ ActiveRecord::Schema.define(version: 2018_06_09_110345) do
   create_table "decider_workflows", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name"
     t.integer "initial_operation_id"
+    t.string "identifier"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["identifier"], name: "index_decider_workflows_on_identifier"
   end
 
 end
