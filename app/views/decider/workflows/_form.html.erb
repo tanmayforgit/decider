@@ -1,0 +1,33 @@
+<%= form_tag(form_path) do%>
+  <%= label_tag 'Select Workflow' %>
+  <%= select_tag(:name, options_for_select(Decider::Workflow.name_selection_options), prompt: 'Select workflow') %>
+  <%= select_tag(:initial_operation_name)%>
+  <%= hidden_tag%>
+
+  <% submit_tag %>
+<% end %>
+
+<script type="text/javascript">
+  $(document).ready(function(){
+    $('#name').change(function(){
+      AddOperations($('#name').val());
+    })
+  })
+
+ function AddOperations(){
+  $.ajax({
+    type: "GET",
+    dataType: "json",
+    url: "<%= all_operations_workflows_url %>" + "?workflow_name=" + $('#name').val(),
+    success: function(data){
+      $('#initial_operation_name').empty();
+
+      $('#initial_operation_name').append("<option value=\"" + "\"> Choose Initial Operation" + "</option>");
+
+      $.each(data, function(i, operation){
+        $('#initial_operation_name').append("<option value=\"" +operation+ "\">" + operation +  "</option>");
+      });
+    }
+  });
+ }
+</script>

@@ -27,7 +27,7 @@ module Decider
 
         current_configuration[workflow_namespace] = [] unless current_configuration[workflow_namespace]
         raise "operation already present" if current_configuration[workflow_namespace].include?(operation_namespace)
-        current_configuration[workflow_namespace] << operation_name
+        current_configuration[workflow_namespace] << operation_namespace
 
         File.open(yaml_file_path, 'w') { |f| f.write current_configuration.to_yaml }
 

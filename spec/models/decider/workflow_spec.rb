@@ -125,7 +125,6 @@ module Decider
       end
     end
 
-
     describe 'Workflow object persistance' do
       let(:workflow_name) { 'Some Name' }
       let(:initial_operation_name) { 'First operation of the workflow' }
@@ -143,9 +142,18 @@ module Decider
           subject { workflow_obj.save }
           it 'Creates initial operation record' do
             expect{subject}.to change{Decider::Operation.count}.by(1)
-            expect(workflow_obj.reload.initial_operation.name).to eq(initial_operation_name)
+            expect(workflow_obj.reload.initial_operation.name).to eq('first_operation_of_the_workflow')
           end
         end
+      end
+    end
+
+    describe '#self.assign_from_creation_params' do
+      let(:params) { { name: 'some_workflow_name', initial_operation_name: 'some_operation_name' } }
+      subject { Workflow.assign_from_creation_params(params) }
+      it 'Assigns from params' do
+        expect(subject.initial_operation_name).to eq('some_operation_name')
+        expect(subject.name).to eq('some_workflow_name')
       end
     end
   end

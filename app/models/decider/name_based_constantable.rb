@@ -5,6 +5,11 @@ module Decider
       Decider::NameBasedConstantable.name_as_constant(self.name)
     end
 
+    def namespaced_name
+      return "" if name.nil?
+      Decider::NameBasedConstantable.name_as_namespace(self.name)
+    end
+
     def self.name_as_constant(name)
       name.split(' ').join('_').camelcase
     end

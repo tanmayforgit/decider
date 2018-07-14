@@ -4,14 +4,18 @@ module Decider
     include NameBasedConstantable
 
     attr_accessor :context, :initial_operation_name
+
     has_many :operations
     after_initialize :set_initial_creation_flag
     belongs_to :initial_operation, class_name: 'Operation', optional: true
     after_create :create_initial_operation
 
     validates :name, presence: true
+    validates :identifier, uniqueness: true
     validates :initial_operation, presence: true, unless: :initial_creation_flag_set?
     validates :initial_operation_name, presence: { message: 'Please set initial_operation_name'}, if: :initial_creation_flag_set?
+
+    CONFIGURATION = Decider::OperationConfiguration.new
 
     def name_space
       name.parameterize.underscore
@@ -39,7 +43,17 @@ module Decider
       result_class.new(self)
     end
 
+    class << self
+      def name_selection_options
+        CONFIGURATION.workflow_names.map { |name| [name, name] }
+      end
+    end
+
     private
+
+    def configuration
+      @configuration ||= OperationConfiguration.new
+    end
 
     def set_initial_creation_flag
       @creation_flag = true
@@ -54,10 +68,42 @@ module Decider
       op.save
       self.initial_operation = op
       self.save
+    end
+
+    def assign_from_creation_params(params)
 
     end
+
+
+    # class Master
+    #   attr_reader :name, :name_as_namespace, :operations
+    #   def initialize(workflow_name)
+    #     @name = @workflow_name
+    #     @operations = operations_from_configuration(workflow_name)
+    #     @name_as_namespace = Decider::NameBasedConstantable.name_as_namespace(workflow_name)
+    #   end
+
+      class << self
+        def assign_from_creation_params(params)
+          wf = self.new(name: params[:name])
+          wf.initial_operation_name = params[:initial_operation_name]
+          wf
+        end
+      end
+
+    #   private
+
+    #   def operations_from_configuration(workflow_name)
+    #     configuration[@name_as_namespace]
+    #   end
+
+    #   def configuration
+    #     @configuration ||= ( YAML.load(File.open("#{Rails.root}/config/operations.yml")) || {} )
+    #   end
+    # end
 
     class ContextNotSetError < StandardError
     end
+
   end
 end

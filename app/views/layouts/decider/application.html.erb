@@ -9,7 +9,11 @@
   <%= javascript_include_tag "decider/application" %>
 </head>
 <body>
-
+<div class="flast_error" style="color: red">
+  <% if flash[:errors]%>
+    <%= flash[:errors]%>
+  <% end %>
+</div>
 <%= yield %>
 
 </body>
