@@ -1,0 +1,16 @@
+<h3>
+  <%= @master_workflow.name%>
+</h3>
+
+<div style="border: 1px solid">
+  <% @master_workflow.operation_names.each do |operation_name| %>
+    <%= link_to operation_name, master_operations_edit_path(workflow_name: @master_workflow.name, operation_name: operation_name)%>
+  <% end %>
+</div>
+
+<%= form_tag(master_workflows_create_path) do %>
+  <%= hidden_field_tag :workflow_name, @master_workflow.name %>
+  <%= label_tag 'Name'%>
+  <%= text_field_tag :operation_name %>
+  <%= submit_tag('Add New Workflow')%>
+<% end %>

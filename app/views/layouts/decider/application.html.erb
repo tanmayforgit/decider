@@ -13,6 +13,10 @@
   <% if flash[:errors]%>
     <%= flash[:errors]%>
   <% end %>
+
+  <% if flash[:message]%>
+    <%= flash[:message]%>
+  <% end %>
 </div>
 <%= yield %>
 

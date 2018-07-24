@@ -1,0 +1,13 @@
+<div style="border: 1px solid">
+  <% @workflow_names.each do |workflow_name| %>
+    <%= link_to workflow_name, master_workflows_show_path(name: workflow_name)%>
+    </br>
+  <% end %>
+</div>
+
+
+<%= form_tag(master_workflows_create_path) do %>
+  <%= label_tag 'Name'%>
+  <%= text_field_tag :name %>
+  <%= submit_tag('Add New Workflow')%>
+<% end %>
