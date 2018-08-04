@@ -10,13 +10,22 @@
 </head>
 <body>
 <div class="flast_error" style="color: red">
-  <% if flash[:errors]%>
-    <%= flash[:errors]%>
-  <% end %>
 
-  <% if flash[:message]%>
-    <%= flash[:message]%>
-  <% end %>
+  <%= link_to 'All workflows', master_workflows_index_path%>
+  </br>
+
+  <div style="color: red">
+    <% if flash[:errors]%>
+      <%= flash[:errors]%>
+    <% end %>
+  </div>
+
+  <div style="color: green">
+    <% if flash[:message]%>
+      <%= flash[:message]%>
+    <% end %>
+  </div>
+
 </div>
 <%= yield %>
 

@@ -4,6 +4,7 @@ module Decider
     def initialize(name)
       @name = name
       @errors = []
+      @operation_addition_errors = []
     end
 
     def operation_names
@@ -11,7 +12,7 @@ module Decider
     end
 
     def add_operation(operation_name)
-      Decider::OperationConfiguration.add_operation_unless_present()
+      Decider::OperationConfiguration.add_operation_unless_present(self.name, operation_name)
     end
 
     def save!
@@ -21,6 +22,11 @@ module Decider
     def valid?
       validate_name
       @errors.empty?
+    end
+
+    def valid_to_add_operation?(operation_name)
+      validate_operation_uniqueness(operation_name)
+      @operation_addition_errors.empty?
     end
 
     class << self
@@ -34,7 +40,20 @@ module Decider
       @errors.join(', ')
     end
 
+    def operation_addition_error_message
+      @operation_addition_errors.join(', ')
+    end
+
     private
+
+    def validate_operation_uniqueness(operation_name)
+      @operation_addition_errors << 'Already exists' if operation_exists?(operation_name)
+    end
+
+    def operation_exists?(operation_name)
+      operation_namespace = ::Decider::NameBasedConstantable.name_as_namespace(operation_name.to_s)
+      operation_names.include?(operation_namespace)
+    end
 
     def validate_name
       @errors << 'Name already exists' if Decider::OperationConfiguration.workflow_exists?(self.name)
