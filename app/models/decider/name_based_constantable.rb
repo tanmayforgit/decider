@@ -17,5 +17,9 @@ module Decider
     def self.name_as_namespace(name)
       name.downcase.split(' ').join('_')
     end
+
+    def underscored_name(name)
+      name.downcase.split(' ').join('_')
+    end
   end
 end
