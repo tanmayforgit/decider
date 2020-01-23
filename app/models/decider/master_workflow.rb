@@ -5,6 +5,7 @@ module Decider
       @name = name
       @errors = []
       @operation_addition_errors = []
+      @name_as_sym = @name.to_sym
     end
 
     def operation_names
@@ -20,7 +21,7 @@ module Decider
     end
 
     def exists?
-      Decider::OperationConfiguration.workflow_names.include?(@name)
+      Decider::OperationConfiguration.workflow_names.include?(@name_as_sym)
     end
 
     def valid?

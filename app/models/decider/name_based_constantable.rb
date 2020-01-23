@@ -24,7 +24,7 @@ module Decider
     end
 
     def self.underscored_name(name)
-      name.to_s.downcase.split(' ').join('_')
+      name.to_s.underscore.split(' ').join('_')
     end
   end
 end
