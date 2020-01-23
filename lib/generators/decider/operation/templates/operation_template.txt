@@ -1,0 +1,4 @@
+module
+  class < Decider::OperationImplementerBase
+  end
+end
