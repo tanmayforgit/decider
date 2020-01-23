@@ -13,6 +13,10 @@ module Decider
       @valid_edit_called = false
     end
 
+    def exists?
+      @master_workflow.operation_names.include?(@name)
+    end
+
     def valid_edit?
       validate_name_for_edit if @is_name_changed
       @edit_errors.empty?

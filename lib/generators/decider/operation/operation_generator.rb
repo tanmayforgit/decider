@@ -23,6 +23,11 @@ module Decider
         master_worflow = Decider::MasterWorkflow.new(workflow_name)
         raise 'Please generate workflow first' unless master_worflow.exists?
         # make entry in operations.yml
+
+        master_operation = Decider::MasterOperation.new(master_worflow, operation_name)
+
+        raise 'Operation already exists' unless master_operation.exists?
+
         yaml_file_path = "#{Rails.root}/config/operations.yml"
         current_configuration = YAML.load(File.open("#{Rails.root}/config/operations.yml")) || {}
 
