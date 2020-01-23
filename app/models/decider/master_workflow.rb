@@ -19,6 +19,10 @@ module Decider
       Decider::OperationConfiguration.add_workflow_unless_present(self.name)
     end
 
+    def exists?
+      Decider::OperationConfiguration.workflow_names.include?(@name)
+    end
+
     def valid?
       validate_name
       @errors.empty?

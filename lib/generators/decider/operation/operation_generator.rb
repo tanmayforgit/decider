@@ -20,7 +20,8 @@ module Decider
         workflow_namespace = Decider::NameBasedConstantable.name_as_namespace(workflow_name)
         operation_namespace = Decider::NameBasedConstantable.name_as_namespace(operation_name)
 
-
+        master_worflow = Decider::MasterWorkflow.new(workflow_name)
+        raise 'Please generate workflow first' unless master_worflow.exists?
         # make entry in operations.yml
         yaml_file_path = "#{Rails.root}/config/operations.yml"
         current_configuration = YAML.load(File.open("#{Rails.root}/config/operations.yml")) || {}
