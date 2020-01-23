@@ -18,12 +18,6 @@ module Decider
         end
       end
 
-      def end_point(workflow_name, operation_name)
-        operation_conf = operation_configuration(workflow_name, operation_name)
-
-        operation_conf[:end_point]
-      end
-
       def add_operation_unless_present(workflow_name, operation_name)
         wf_namespace = ::Decider::NameBasedConstantable.name_as_namespace(workflow_name.to_s)
         op_namespace = ::Decider::NameBasedConstantable.name_as_namespace(operation_name.to_s)
@@ -31,7 +25,7 @@ module Decider
         add_workflow_unless_present(wf_namespace)
 
         unless operation_names(wf_namespace).include?(op_namespace)
-          configuration[wf_namespace.to_sym] << { name: op_namespace, end_point: nil }
+          configuration[wf_namespace.to_sym] << { name: op_namespace }
           write_configuration
         end
       end
@@ -53,11 +47,10 @@ module Decider
         configuration.keys
       end
 
-      def update_operation(workflow_name, old_name, new_name, new_end_point)
+      def update_operation(workflow_name, old_name, new_name)
         op_conf = operation_configuration(workflow_name, old_name)
 
         op_conf[:name] = ::Decider::NameBasedConstantable.name_as_namespace(new_name.to_s)
-        op_conf[:end_point] = new_end_point
         write_configuration
       end
 
