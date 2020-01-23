@@ -15,8 +15,6 @@ module Decider
     validates :initial_operation, presence: true, unless: :initial_creation_flag_set?
     validates :initial_operation_name, presence: { message: 'Please set initial_operation_name'}, if: :initial_creation_flag_set?
 
-    CONFIGURATION = Decider::OperationConfiguration.new
-
     def name_space
       name.parameterize.underscore
     end
@@ -45,7 +43,7 @@ module Decider
 
     class << self
       def name_selection_options
-        CONFIGURATION.workflow_names.map { |name| [name, name] }
+        Decider::OperationConfiguration.workflow_names.map { |name| [name, name] }
       end
     end
 
