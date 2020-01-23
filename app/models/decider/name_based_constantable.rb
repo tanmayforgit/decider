@@ -10,16 +10,21 @@ module Decider
       Decider::NameBasedConstantable.name_as_namespace(self.name)
     end
 
+    def underscored_name
+      return "" if name.nil?
+      Decider::NameBasedConstantable.underscored_name(name)
+    end
+
     def self.name_as_constant(name)
-      name.split(' ').join('_').camelcase
+      name.to_s.split(' ').join('_').camelcase
     end
 
     def self.name_as_namespace(name)
-      name.downcase.split(' ').join('_')
+      name.to_s.downcase.split(' ').join('_')
     end
 
-    def underscored_name(name)
-      name.downcase.split(' ').join('_')
+    def self.underscored_name(name)
+      name.to_s.downcase.split(' ').join('_')
     end
   end
 end
