@@ -26,16 +26,7 @@ module Decider
 
         master_operation = Decider::MasterOperation.new(master_worflow, operation_name)
 
-        raise 'Operation already exists' unless master_operation.exists?
-
-        yaml_file_path = "#{Rails.root}/config/operations.yml"
-        current_configuration = YAML.load(File.open("#{Rails.root}/config/operations.yml")) || {}
-
-        current_configuration[workflow_namespace] = [] unless current_configuration[workflow_namespace]
-        raise "operation already present" if current_configuration[workflow_namespace].include?(operation_namespace)
-        current_configuration[workflow_namespace] << operation_namespace
-
-        File.open(yaml_file_path, 'w') { |f| f.write current_configuration.to_yaml }
+        raise 'Operation already exists' if master_operation.exists?
 
         # create operation implementer class
         workflow_constant_name = Decider::NameBasedConstantable.name_as_constant(workflow_namespace)
