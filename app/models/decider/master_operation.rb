@@ -17,6 +17,10 @@ module Decider
       @master_workflow.operation_names.include?(@name)
     end
 
+    def save
+      OperationConfiguration.add_operation_unless_present(@master_workflow.name, @name)
+    end
+
     def valid_edit?
       validate_name_for_edit if @is_name_changed
       @edit_errors.empty?
