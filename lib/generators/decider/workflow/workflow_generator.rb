@@ -26,7 +26,7 @@ module Decider
         master_workflow.save!
 
         # Create workflow directory
-        FileUtils.mkdir_p("#{Rails.root}/workflows/#{underscored_workflow_name}")
+        FileUtils.mkdir_p("#{Rails.root}/decider_workflows/#{underscored_workflow_name}")
       end
     end
   end
