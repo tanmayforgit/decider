@@ -60,7 +60,7 @@ module Decider
         subject { workflow.result_obj_klass }
         it 'Returns that class' do
           allow(Module).to receive(:const_get).with(workflow.specific_result_obj_klass_constant_name) { result_klass }
-          allow(result_klass).to receive(:new).with(workflow) { result_klass_instance }
+          allow(result_klass).to receive(:new) { result_klass_instance }
           expect(subject).to eq(result_klass_instance)
         end
       end
@@ -69,8 +69,7 @@ module Decider
         let(:workflow) { create(:decider_workflow) }
         subject { workflow.result_obj_klass }
         it 'Returns that class' do
-          expect(subject).to be_an_instance_of(Decider::WorkflowResults::Default)
-          expect(subject.workflow).to eq(workflow)
+          expect(subject).to be_an_instance_of(Decider::WorkflowResults::Base)
         end
       end
     end

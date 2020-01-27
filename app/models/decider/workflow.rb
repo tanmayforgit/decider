@@ -36,9 +36,9 @@ module Decider
       result_class = begin
                       Module.const_get(specific_result_obj_klass_constant_name)
                     rescue NameError
-                      WorkflowResults::Default
+                      ::Decider::WorkflowResults::Base
                     end
-      result_class.new(self)
+      result_class.new
     end
 
     class << self

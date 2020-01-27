@@ -18,10 +18,10 @@ module Decider
       context 'When result object is absent for the workflow' do
         let(:workflow) { double(result_obj:  nil) }
         let(:context) { double }
-        let(:default_result_obj) { double(WorkflowResults::Base) }
+        let(:default_result_obj) { double(Decider::WorkflowResults::Base) }
         subject { Decider::WorkflowRunner.new(workflow, context) }
         it 'Initialized with default result object' do
-          allow(WorkflowResults::Base).to receive(:new) { default_result_obj }
+          allow(Decider::WorkflowResults::Base).to receive(:new) { default_result_obj }
           expect(subject.instance_variable_get(:@result_obj)).to eq(default_result_obj)
           expect(subject.instance_variable_get(:@workflow)).to eq(workflow)
           expect(subject.instance_variable_get(:@context)).to eq(context)
