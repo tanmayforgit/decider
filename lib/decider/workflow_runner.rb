@@ -3,11 +3,7 @@ module Decider
     def initialize(workflow, context)
       @workflow = workflow
       @context = context
-      @result_obj = if !workflow.result_obj.nil?
-                      workflow.result_obj
-                    else
-                      default_result_object
-                    end
+      @result_obj = workflow.result_obj
     end
 
     def run
@@ -31,13 +27,8 @@ module Decider
           operation_to_perform = operation_to_perform.after_success_operation
         end
       end
+
+      @result_obj
     end
-
-    private
-
-    def default_result_object
-      WorkflowResults::Base.new
-    end
-
   end
 end
