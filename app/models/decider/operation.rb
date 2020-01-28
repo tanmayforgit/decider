@@ -18,6 +18,10 @@ module Decider
       operation_implementer_klass_name.constantize.new(operation_context, result_object)
     end
 
+    def details_hash
+      { name: self.name, after_success_operation: after_success_operation.try(:name), after_failure_operation: after_failure_operation.try(:name)}
+    end
+
     def format_name
       self.name = namespaced_name
     end

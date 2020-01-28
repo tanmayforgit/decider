@@ -1,4 +1,5 @@
 require 'pry'
+require 'decider/workflow_results/base'
 module Decider
   class Workflow < ApplicationRecord
     include NameBasedConstantable
@@ -32,13 +33,22 @@ module Decider
       "Decider::WorkflowResults::#{klass_name}"
     end
 
-    def result_obj_klass
+    def result_obj
       result_class = begin
                       Module.const_get(specific_result_obj_klass_constant_name)
                     rescue NameError
                       ::Decider::WorkflowResults::Base
                     end
       result_class.new
+    end
+
+    def entire_workflow_as_hash
+      {
+        name: self.name,
+        initial_operation_name: self.initial_operation.try(:name),
+        workflow_identifier: self.identifier,
+        operations: operations.map { |operation| operation.details_hash }
+      }
     end
 
     class << self
@@ -50,7 +60,6 @@ module Decider
       # {
       #   name: 'workflow_name'
       #   initial_operation_name: 'operation_name',
-      #   end_operation_name: 'end_operation_name'
       #   workflow_identifier: 'workflow_identifier',
       #   operations: [
       #     { name: 'operation_name', after_failure_operation_name: 'afo_name', after_success_operation_name: 'aso_name' },
@@ -65,13 +74,11 @@ module Decider
         ActiveRecord::Base.transaction do
           workflow_name = workflow_hash[:name]
           workflow_identifier = workflow_hash[:workflow_identifier]
-
-          workflow_constant = workflow_identifier.constantize
-
-          wf = find_or_initialize_by(name: workflow_constant.to_s, identifier: workflow_identifier)
-          wf.save!
-
           initial_operation_name = workflow_hash[:initial_operation_name]
+
+          wf = find_or_initialize_by(name: workflow_name.to_s, identifier: workflow_identifier)
+          wf.initial_operation_name = initial_operation_name
+          wf.save!
 
           initial_operation_record = wf.operations.find_or_initialize_by(name: initial_operation_name)
           initial_operation_record.save!

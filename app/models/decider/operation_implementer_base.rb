@@ -6,19 +6,25 @@ module Decider
     end
 
     def to_fail?
+      puts "#{__callee__} called on #{self.class.name}"
       false
     end
 
     def to_abandon?
+      puts "#{__callee__} called on #{self.class.name}"
       false
     end
 
     def perform_failure
-
+      puts "#{__callee__} called on #{self.class.name}"
     end
 
     def perform_abandonment
+      puts "#{__callee__} called on #{self.class.name}"
+    end
 
+    def perform
+      puts "#{__callee__} called on #{self.class.name}"
     end
   end
 end

@@ -27,8 +27,8 @@ module Decider
         workflow_constant_name = Decider::NameBasedConstantable.name_as_constant(underscored_workflow_name)
 
         # Create workflow directory
-        FileUtils.mkdir_p("#{Rails.root}/decider_services")
-        service_file_path = "#{Rails.root}/decider_services/#{underscored_workflow_name}_decider_service.rb"
+        FileUtils.mkdir_p("#{Rails.root}/app/decider_services")
+        service_file_path = "#{Rails.root}/app/decider_services/#{underscored_workflow_name}_decider_service.rb"
 
         copy_file "decider_service_template.txt", service_file_path
 

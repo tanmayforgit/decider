@@ -1,3 +1,4 @@
+require 'decider/workflow_runner'
 class
   def initialize()
   end
