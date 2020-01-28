@@ -31,8 +31,8 @@ module Decider
 
       context 'One of the operation abandons' do
         it 'Runs the operations as per success and failure until one of the operation abandons and runs perform abandonment method on abandoning operation' do
-          allow(initial_operation).to receive(:build_implementer).with(context) { succeeding_operation_implementer }
-          allow(op1).to receive(:build_implementer).with(context) { abandoning_operation_implementer }
+          allow(initial_operation).to receive(:build_implementer).with(context, result_obj) { succeeding_operation_implementer }
+          allow(op1).to receive(:build_implementer).with(context, result_obj) { abandoning_operation_implementer }
           expect(succeeding_operation_implementer).to receive(:perform)
           expect(op1).not_to receive(:perform)
           expect(op3).not_to receive(:build_implementer)
@@ -45,9 +45,9 @@ module Decider
 
       context 'None of the operation abandons' do
         it 'Runs operations as per after failure and after success operations' do
-          allow(initial_operation).to receive(:build_implementer).with(context) { failing_operation_implementer }
-          expect(op2).to receive(:build_implementer).with(context) { succeeding_operation_implementer }
-          expect(op5).to receive(:build_implementer).with(context) { succeeding_operation_implementer }
+          allow(initial_operation).to receive(:build_implementer).with(context, result_obj) { failing_operation_implementer }
+          expect(op2).to receive(:build_implementer).with(context, result_obj) { succeeding_operation_implementer }
+          expect(op5).to receive(:build_implementer).with(context, result_obj) { succeeding_operation_implementer }
 
           expect(failing_operation_implementer).to receive(:perform_failure).exactly(1).times
           expect(succeeding_operation_implementer).to receive(:perform).exactly(2).times

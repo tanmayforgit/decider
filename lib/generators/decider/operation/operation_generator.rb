@@ -34,11 +34,11 @@ module Decider
         workflow_constant_name = Decider::NameBasedConstantable.name_as_constant(workflow_namespace)
         operation_constant_name = Decider::NameBasedConstantable.name_as_constant(operation_namespace)
 
-        operation_file_path = "#{Rails.root}/decider_workflows/#{workflow_namespace}/#{operation_namespace}.rb"
+        operation_file_path = "#{Rails.root}/decider_operations/#{workflow_namespace}/#{operation_namespace}_decider_operation.rb"
 
 
         copy_file "operation_template.txt", operation_file_path
-        inject_into_file operation_file_path, " #{workflow_constant_name}Workflow", after: 'module'
+        inject_into_file operation_file_path, " #{workflow_constant_name}DeciderWorkflow", after: 'module'
         inject_into_file operation_file_path, "#{operation_constant_name} ", after: 'class '
       end
     end

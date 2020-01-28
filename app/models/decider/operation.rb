@@ -11,11 +11,11 @@ module Decider
     validates :name, presence: true
 
     def operation_implementer_klass_name
-      "#{workflow.camelcased_name}Workflow::#{name.camelcase}"
+      "#{workflow.camelcased_name}DeciderWorkflow::#{self.camelcased_name}DeciderOperation"
     end
 
-    def build_implementer(operation_context)
-      operation_implementer_klass_name.constantize.new(operation_context)
+    def build_implementer(operation_context, result_object)
+      operation_implementer_klass_name.constantize.new(operation_context, result_object)
     end
 
     def format_name

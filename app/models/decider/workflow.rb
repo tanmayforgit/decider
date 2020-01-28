@@ -45,6 +45,62 @@ module Decider
       def name_selection_options
         Decider::OperationConfiguration.workflow_names.map { |name| [name, name] }
       end
+
+      # Workflow json has following structure
+      # {
+      #   name: 'workflow_name'
+      #   initial_operation_name: 'operation_name',
+      #   end_operation_name: 'end_operation_name'
+      #   workflow_identifier: 'workflow_identifier',
+      #   operations: [
+      #     { name: 'operation_name', after_failure_operation_name: 'afo_name', after_success_operation_name: 'aso_name' },
+      #     .
+      #     .
+      #     .
+
+      #   ]
+      # }
+
+      def create_or_update_from_workflow_json(workflow_hash)
+        ActiveRecord::Base.transaction do
+          workflow_name = workflow_hash[:name]
+          workflow_identifier = workflow_hash[:workflow_identifier]
+
+          workflow_constant = workflow_identifier.constantize
+
+          wf = find_or_initialize_by(name: workflow_constant.to_s, identifier: workflow_identifier)
+          wf.save!
+
+          initial_operation_name = workflow_hash[:initial_operation_name]
+
+          initial_operation_record = wf.operations.find_or_initialize_by(name: initial_operation_name)
+          initial_operation_record.save!
+
+          workflow_hash[:operations].each do |operation_hash|
+            operation_name = operation_hash[:name].to_s
+            operation_record = wf.operations.find_or_initialize_by(name: operation_name)
+
+            after_failure_operation_name = operation_hash[:after_failure_operation_name].to_s
+            if after_failure_operation_name.present?
+              after_failure_operation_record = wf.operations.find_or_initialize_by(name: after_failure_operation_name)
+              after_failure_operation_record.save!
+              operation_record.after_failure_operation = after_failure_operation_record
+            end
+
+            after_success_operation_name = operation_hash[:after_success_operation_name].to_s
+            if after_success_operation_name.present?
+              after_success_operation_record = wf.operations.find_or_initialize_by(name: after_success_operation_name)
+              after_success_operation_record.save!
+              operation_record.after_success_operation = after_success_operation_record
+            end
+
+            operation_record.save!
+          end
+          # puts "---------------- printing operation sequences ----------------"
+          # wf.print_sequences
+          # puts "-----------------------------------------------------------------"
+        end
+      end
     end
 
     private
