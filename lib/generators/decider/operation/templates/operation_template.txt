@@ -6,23 +6,15 @@ module
     end
 
     def to_fail?
-      # Please implement or delete
-    end
-
-    def to_abandon?
-      # Please implement or delete
+      # To be implemented or deleted
     end
 
     def perform_failure
-      # Please implement or delete
-    end
-
-    def perform_abandonment
-      # Please implement or delete
+      # Please implemented or deleted
     end
 
     def perform
-      # Please implement
+      # To be implemented
     end
   end
 end

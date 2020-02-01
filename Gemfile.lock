@@ -2,6 +2,7 @@ PATH
   remote: .
   specs:
     decider (0.1.0)
+      activerecord (>= 3.2.0)
 
 GEM
   remote: https://rubygems.org/
