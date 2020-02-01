@@ -1,9 +1,6 @@
 # Decider
 Decider is a Rails engine that helps in creating a clean and maintainable multi tenant Rails application. Creating multitenant application with Decider allows you to have models that do just database talking and business logic gets handled by a layer I like to call 'Operation layer'. The sequence in which these operations get executed for a tenant is put in database.
 
-## Usage
-How to use my plugin.
-
 ## Installation
 Add this line to your application's Gemfile:
 
@@ -73,11 +70,10 @@ Decider::Workflow.create_or_update_from_workflow_json(workflow_sequence_hash)
 Next we will have a look at operation class
 decider:operation will generate operation class in app/decider_operations/{workflow_name}/ directory which will automatically be initialized with operation_context that you created in decider service class and result object when you call the 'call' method on service class.
 
-By default decider will first call to_fail? method of a operation class. If this method returns true, decider will call perform_failure and next operation will be after_failure operation configured in database. If this method returns true, decider will call perform method and next operation will be after_success operation configured in database.
-
+By default decider will first call to_fail? method of a operation class. If this method returns true, decider will call perform_failure and next operation will be after_failure operation configured in database. If this method returns false, decider will call perform method and next operation will be after_success operation configured in database. Decider will stop when there is no operation to run.
 
 ## Sample
-Contribution directions go here.
 
+You can find a sample multitenant application here.
 ## License
 The gem is available as open source under the terms of the [MIT License](https://opensource.org/licenses/MIT).
