@@ -1,4 +1,3 @@
-require 'pry'
 require 'nayati/workflow_results/base'
 module Nayati
   class Workflow < ApplicationRecord

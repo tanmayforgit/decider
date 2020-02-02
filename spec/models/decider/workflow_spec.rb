@@ -1,4 +1,3 @@
-require 'pry'
 module Nayati
   RSpec.describe Workflow, type: :model do
     describe '#name_space' do

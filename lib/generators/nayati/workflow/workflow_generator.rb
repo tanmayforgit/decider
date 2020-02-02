@@ -1,5 +1,4 @@
 require 'rails/generators'
-require 'pry'
 module Nayati
   module Generators
     class WorkflowGenerator < Rails::Generators::Base
