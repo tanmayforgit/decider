@@ -9,9 +9,9 @@ Gem::Specification.new do |s|
   s.version     = Nayati::VERSION
   s.authors     = ["Tanmay Tupe"]
   s.email       = ["tanmaytupe@gmail.com"]
-  # s.homepage    = "TODO"
+  s.homepage    = "https://github.com/tanmayforgit/nayati"
   s.summary     = "Summary of Nayati."
-  # s.description = "TODO: Description of Nayati."
+  s.description = "Nayati is a Rails engine that helps in creating a clean and maintainable multi tenant Rails application. Creating multitenant application with Nayati allows you to have models that do just database talking and business logic gets handled by a layer I like to call 'Operation layer'. The sequence in which these operations get executed for a tenant is put in database."
   s.license     = "MIT"
 
   s.files = Dir["{app,config,db,lib}/**/*", "MIT-LICENSE", "Rakefile", "README.md"]
