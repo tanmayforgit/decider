@@ -1,5 +1,5 @@
 require 'pry'
-require 'decider/workflow_results/base'
+require 'nayati/workflow_results/base'
 module Decider
   class Workflow < ApplicationRecord
     include NameBasedConstantable
