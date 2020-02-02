@@ -1,4 +1,4 @@
-module Decider
+module Nayati
   module WorkflowResults
     class Base
       def initialize

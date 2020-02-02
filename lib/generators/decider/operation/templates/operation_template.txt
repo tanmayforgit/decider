@@ -1,5 +1,5 @@
 module
-  class < Decider::OperationImplementerBase
+  class < Nayati::OperationImplementerBase
     def initialize(operation_context, result)
       @operation_context = operation_context
       @result = result

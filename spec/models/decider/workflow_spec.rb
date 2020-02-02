@@ -1,5 +1,5 @@
 require 'pry'
-module Decider
+module Nayati
   RSpec.describe Workflow, type: :model do
     describe '#name_space' do
       let(:workflow) { create(:nayati_workflow)}
@@ -26,7 +26,7 @@ module Decider
 
       context 'Workflow running context is not set' do
         it 'Raises an error' do
-          expect{subject}.to raise_error(Decider::Workflow::ContextNotSetError)
+          expect{subject}.to raise_error(Nayati::Workflow::ContextNotSetError)
         end
       end
 
@@ -48,7 +48,7 @@ module Decider
       subject { workflow.specific_result_obj_klass_constant_name }
 
       it 'Returns specific result object class name' do
-        expect(subject).to eq("Decider::WorkflowResults::DoingSomethingWorkflow")
+        expect(subject).to eq("Nayati::WorkflowResults::DoingSomethingWorkflow")
       end
     end
 
@@ -69,7 +69,7 @@ module Decider
         let(:workflow) { create(:nayati_workflow) }
         subject { workflow.result_obj }
         it 'Returns that class' do
-          expect(subject).to be_an_instance_of(Decider::WorkflowResults::Base)
+          expect(subject).to be_an_instance_of(Nayati::WorkflowResults::Base)
         end
       end
     end
@@ -104,7 +104,7 @@ module Decider
 
         context 'Initial operation name is not passed' do
           let(:workflow_creation_params) { { name: workflow_name } }
-          let(:workflow_obj) { Decider::Workflow.new(workflow_creation_params) }
+          let(:workflow_obj) { Nayati::Workflow.new(workflow_creation_params) }
           subject { workflow_obj.valid? }
           it 'Adds proper error to workflow object' do
             subject
@@ -114,7 +114,7 @@ module Decider
 
         context 'initial_operation_name is passed' do
           let(:workflow_creation_params) { { name: workflow_name, initial_operation_name: initial_operation_name } }
-          let(:workflow_obj) { Decider::Workflow.new(workflow_creation_params) }
+          let(:workflow_obj) { Nayati::Workflow.new(workflow_creation_params) }
 
           subject { workflow_obj.valid? }
           it 'Returns true' do
@@ -131,16 +131,16 @@ module Decider
       context 'Workflow object is valid' do
         describe 'Creation' do
           let(:workflow_creation_params) { { name: workflow_name, initial_operation_name: initial_operation_name } }
-          let(:workflow_obj) { Decider::Workflow.new(workflow_creation_params) }
+          let(:workflow_obj) { Nayati::Workflow.new(workflow_creation_params) }
 
           subject { workflow_obj.save }
           it 'Persists workfow record' do
-            expect{subject}.to change{Decider::Workflow.where(name: workflow_name).count}.by(1)
+            expect{subject}.to change{Nayati::Workflow.where(name: workflow_name).count}.by(1)
           end
 
           subject { workflow_obj.save }
           it 'Creates initial operation record' do
-            expect{subject}.to change{Decider::Operation.count}.by(1)
+            expect{subject}.to change{Nayati::Operation.count}.by(1)
             expect(workflow_obj.reload.initial_operation.name).to eq('first_operation_of_the_workflow')
           end
         end

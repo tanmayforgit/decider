@@ -1,11 +1,11 @@
-module Decider
+module Nayati
   RSpec.describe Operation do
     describe '#operation_implementer_klass_name' do
       let(:operation) { create(:nayati_operation)}
       subject { operation.operation_implementer_klass_name }
 
       it 'Returns workflow namespaced klass name' do
-        expect(subject).to eq('DoingSomethingDeciderWorkflow::SomeOperationDeciderOperation')
+        expect(subject).to eq('DoingSomethingNayatiWorkflow::SomeOperationNayatiOperation')
       end
     end
 
@@ -35,7 +35,7 @@ module Decider
 
     describe '#validatoin' do
       let(:workflow) { create(:nayati_workflow) }
-      let(:operation) { Decider::Operation.new }
+      let(:operation) { Nayati::Operation.new }
       subject { operation.valid? }
 
       it 'Returns false with proper error message' do

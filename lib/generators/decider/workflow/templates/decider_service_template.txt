@@ -4,7 +4,7 @@ class
   end
 
   def call
-    Decider::WorkflowRunner.new(workflow, context).run
+    Nayati::WorkflowRunner.new(workflow, context).run
   end
 
   private

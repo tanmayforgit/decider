@@ -1,11 +1,11 @@
 require 'nayati/workflow_runner'
-class ScrumsDeciderService
+class ScrumsNayatiService
 
   def initialize()
   end
 
   def call
-    Decider::WorkflowRunner.new(workflow, context).run
+    Nayati::WorkflowRunner.new(workflow, context).run
   end
 
   private

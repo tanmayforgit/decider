@@ -1,7 +1,7 @@
 require 'test_helper'
 
-class Decider::Test < ActiveSupport::TestCase
+class Nayati::Test < ActiveSupport::TestCase
   test "truth" do
-    assert_kind_of Module, Decider
+    assert_kind_of Module, Nayati
   end
 end

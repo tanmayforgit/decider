@@ -1,4 +1,4 @@
-module Decider
+module Nayati
   RSpec.describe MasterWorkflow do
 
     describe '#exists?' do
@@ -8,7 +8,7 @@ module Decider
 
         subject { master_workflow.exists? }
         it 'Returns false' do
-          allow(Decider::OperationConfiguration).to receive(:workflow_names) { [] }
+          allow(Nayati::OperationConfiguration).to receive(:workflow_names) { [] }
           expect(subject).to be_falsey
         end
       end
@@ -19,7 +19,7 @@ module Decider
 
         subject { master_workflow.exists? }
         it 'Returns false' do
-          allow(Decider::OperationConfiguration).to receive(:workflow_names) { [workflow_name.to_sym, :something_else] }
+          allow(Nayati::OperationConfiguration).to receive(:workflow_names) { [workflow_name.to_sym, :something_else] }
           expect(subject).to be_truthy
         end
       end

@@ -1,4 +1,4 @@
-module Decider
+module Nayati
   class Operation < ApplicationRecord
     include NameBasedConstantable
 
@@ -11,7 +11,7 @@ module Decider
     validates :name, presence: true
 
     def operation_implementer_klass_name
-      "#{workflow.camelcased_name}DeciderWorkflow::#{self.camelcased_name}DeciderOperation"
+      "#{workflow.camelcased_name}NayatiWorkflow::#{self.camelcased_name}NayatiOperation"
     end
 
     def build_implementer(operation_context, result_object)

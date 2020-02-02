@@ -1,18 +1,18 @@
-module Decider
+module Nayati
   module NameBasedConstantable
     def camelcased_name
       return "" if name.nil?
-      Decider::NameBasedConstantable.name_as_constant(self.name)
+      Nayati::NameBasedConstantable.name_as_constant(self.name)
     end
 
     def namespaced_name
       return "" if name.nil?
-      Decider::NameBasedConstantable.name_as_namespace(self.name)
+      Nayati::NameBasedConstantable.name_as_namespace(self.name)
     end
 
     def underscored_name
       return "" if name.nil?
-      Decider::NameBasedConstantable.underscored_name(name)
+      Nayati::NameBasedConstantable.underscored_name(name)
     end
 
     def self.name_as_constant(name)

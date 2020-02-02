@@ -1,6 +1,6 @@
 require 'rails/generators/migration'
 
-module Decider
+module Nayati
   module Generators
     class InstallGenerator < ::Rails::Generators::Base
       include Rails::Generators::Migration

@@ -1,4 +1,4 @@
-module Decider
+module Nayati
   module OperationConfiguration
     class << self
       def configuration
@@ -6,12 +6,12 @@ module Decider
       end
 
       def operation_names(workflow_name)
-        wf_name = ::Decider::NameBasedConstantable.name_as_namespace(workflow_name.to_s)
+        wf_name = ::Nayati::NameBasedConstantable.name_as_namespace(workflow_name.to_s)
         (configuration[wf_name.to_sym] || []).map { |operation_conf| operation_conf.try(:[], :name) }
       end
 
       def add_workflow_unless_present(workflow_name)
-        wf_namespace = ::Decider::NameBasedConstantable.name_as_namespace(workflow_name.to_s)
+        wf_namespace = ::Nayati::NameBasedConstantable.name_as_namespace(workflow_name.to_s)
         unless workflow_names.include?(wf_namespace.to_sym)
           configuration[wf_namespace.to_sym] = []
           write_configuration
@@ -19,8 +19,8 @@ module Decider
       end
 
       def add_operation_unless_present(workflow_name, operation_name)
-        wf_namespace = ::Decider::NameBasedConstantable.name_as_namespace(workflow_name.to_s)
-        op_namespace = ::Decider::NameBasedConstantable.name_as_namespace(operation_name.to_s)
+        wf_namespace = ::Nayati::NameBasedConstantable.name_as_namespace(workflow_name.to_s)
+        op_namespace = ::Nayati::NameBasedConstantable.name_as_namespace(operation_name.to_s)
 
         add_workflow_unless_present(wf_namespace)
 
@@ -31,7 +31,7 @@ module Decider
       end
 
       def workflow_exists?(workflow_name)
-        wf_namespace = ::Decider::NameBasedConstantable.name_as_namespace(workflow_name.to_s)
+        wf_namespace = ::Nayati::NameBasedConstantable.name_as_namespace(workflow_name.to_s)
         workflow_names.include?(wf_namespace.to_sym)
       end
 
@@ -50,15 +50,15 @@ module Decider
       def update_operation(workflow_name, old_name, new_name)
         op_conf = operation_configuration(workflow_name, old_name)
 
-        op_conf[:name] = ::Decider::NameBasedConstantable.name_as_namespace(new_name.to_s)
+        op_conf[:name] = ::Nayati::NameBasedConstantable.name_as_namespace(new_name.to_s)
         write_configuration
       end
 
       private
 
       def operation_configuration(workflow_name, operation_name)
-        wf_namespace = ::Decider::NameBasedConstantable.name_as_namespace(workflow_name.to_s)
-        op_namespace = ::Decider::NameBasedConstantable.name_as_namespace(operation_name.to_s)
+        wf_namespace = ::Nayati::NameBasedConstantable.name_as_namespace(workflow_name.to_s)
+        op_namespace = ::Nayati::NameBasedConstantable.name_as_namespace(operation_name.to_s)
 
         wf_conf = workflow_configuration(wf_namespace)
         wf_conf.detect { |operation| operation[:name] == op_namespace }

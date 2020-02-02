@@ -1,4 +1,4 @@
-module Decider
+module Nayati
   class WorkflowRunner
     def initialize(workflow, context)
       @workflow = workflow

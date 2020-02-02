@@ -1,4 +1,4 @@
-module Decider
+module Nayati
   class MicroserviceOrientedWorkflowRunner
     def initialize(workflow, context_json, result_json)
       @workflow = workflow

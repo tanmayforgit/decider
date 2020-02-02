@@ -1,4 +1,4 @@
-module Decider
+module Nayati
   RSpec.describe MasterOperation do
 
     describe '#exists?' do

@@ -1,6 +1,6 @@
 require 'pry'
 require 'nayati/workflow_results/base'
-module Decider
+module Nayati
   class Workflow < ApplicationRecord
     include NameBasedConstantable
 
@@ -30,14 +30,14 @@ module Decider
     end
 
     def specific_result_obj_klass_constant_name
-      "Decider::WorkflowResults::#{klass_name}"
+      "Nayati::WorkflowResults::#{klass_name}"
     end
 
     def result_obj
       result_class = begin
                       Module.const_get(specific_result_obj_klass_constant_name)
                     rescue NameError
-                      ::Decider::WorkflowResults::Base
+                      ::Nayati::WorkflowResults::Base
                     end
       result_class.new
     end
@@ -53,7 +53,7 @@ module Decider
 
     class << self
       def name_selection_options
-        Decider::OperationConfiguration.workflow_names.map { |name| [name, name] }
+        Nayati::OperationConfiguration.workflow_names.map { |name| [name, name] }
       end
 
       # Workflow json has following structure
@@ -141,7 +141,7 @@ module Decider
     #   def initialize(workflow_name)
     #     @name = @workflow_name
     #     @operations = operations_from_configuration(workflow_name)
-    #     @name_as_namespace = Decider::NameBasedConstantable.name_as_namespace(workflow_name)
+    #     @name_as_namespace = Nayati::NameBasedConstantable.name_as_namespace(workflow_name)
     #   end
 
       class << self

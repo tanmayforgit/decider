@@ -1,5 +1,5 @@
 require "nayati/engine"
 
-module Decider
+module Nayati
   # Your code goes here...
 end

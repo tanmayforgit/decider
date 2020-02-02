@@ -1,6 +1,6 @@
-module Decider
+module Nayati
   class Engine < ::Rails::Engine
-    isolate_namespace Decider
+    isolate_namespace Nayati
 
     config.generators do |g|
       g.test_framework :rspec, :fixture => false

@@ -1,4 +1,4 @@
-module Decider
+module Nayati
   class MasterOperation
     attr_reader :name
     def initialize(master_workflow, operation_name)
@@ -8,7 +8,7 @@ module Decider
     end
 
     def edit(new_name)
-      @new_name = ::Decider::NameBasedConstantable.name_as_namespace(new_name.to_s)
+      @new_name = ::Nayati::NameBasedConstantable.name_as_namespace(new_name.to_s)
       @is_name_changed = true unless @new_name == @name
       @valid_edit_called = false
     end

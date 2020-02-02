@@ -1,6 +1,6 @@
 require_relative '../../../lib/nayati/workflow_runner'
 require_relative '../../../lib/nayati/workflow_results/base'
-module Decider
+module Nayati
   RSpec.describe WorkflowRunner do
             #                initial_operation
             #                   /        \

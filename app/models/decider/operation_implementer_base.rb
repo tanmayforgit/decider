@@ -1,4 +1,4 @@
-module Decider
+module Nayati
   class OperationImplementerBase
     attr_accessor :operation_context
     def initialize(operation_context)

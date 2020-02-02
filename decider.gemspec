@@ -6,12 +6,12 @@ require "nayati/version"
 # Describe your gem and declare its dependencies:
 Gem::Specification.new do |s|
   s.name        = "nayati"
-  s.version     = Decider::VERSION
+  s.version     = Nayati::VERSION
   s.authors     = ["Tanmay Tupe"]
   s.email       = ["tanmaytupe@gmail.com"]
   # s.homepage    = "TODO"
-  s.summary     = "Summary of Decider."
-  # s.description = "TODO: Description of Decider."
+  s.summary     = "Summary of Nayati."
+  # s.description = "TODO: Description of Nayati."
   s.license     = "MIT"
 
   s.files = Dir["{app,config,db,lib}/**/*", "MIT-LICENSE", "Rakefile", "README.md"]

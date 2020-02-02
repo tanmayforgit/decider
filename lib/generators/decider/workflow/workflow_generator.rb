@@ -1,6 +1,6 @@
 require 'rails/generators'
 require 'pry'
-module Decider
+module Nayati
   module Generators
     class WorkflowGenerator < Rails::Generators::Base
 
@@ -16,15 +16,15 @@ module Decider
         raise "Workflow name must be passed" unless args.size == 1
         workflow_name = args.first
 
-        underscored_workflow_name = Decider::NameBasedConstantable.underscored_name(workflow_name)
+        underscored_workflow_name = Nayati::NameBasedConstantable.underscored_name(workflow_name)
 
-        master_workflow = Decider::MasterWorkflow.new(underscored_workflow_name)
+        master_workflow = Nayati::MasterWorkflow.new(underscored_workflow_name)
 
         raise 'Workflow already exists' if master_workflow.exists?
 
         # make entry in operations.yml
         master_workflow.save!
-        workflow_constant_name = Decider::NameBasedConstantable.name_as_constant(underscored_workflow_name)
+        workflow_constant_name = Nayati::NameBasedConstantable.name_as_constant(underscored_workflow_name)
 
         # Create workflow directory
         FileUtils.mkdir_p("#{Rails.root}/app/nayati_services")
@@ -32,7 +32,7 @@ module Decider
 
         copy_file "nayati_service_template.txt", service_file_path
 
-        inject_into_file service_file_path, " #{workflow_constant_name}DeciderService\n", before: "\n  def initialize"
+        inject_into_file service_file_path, " #{workflow_constant_name}NayatiService\n", before: "\n  def initialize"
       end
     end
   end

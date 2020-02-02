@@ -32,7 +32,7 @@ Dir["#{File.dirname(__FILE__)}/support/**/*.rb"].each { |f| require f }
 Dir["#{File.dirname(__FILE__)}/factories/**/*.rb"].each { |f| require f }
 
 RSpec.configure do |config|
-  config.include Decider::Engine.routes.url_helpers
+  config.include Nayati::Engine.routes.url_helpers
   config.use_transactional_fixtures = true
   config.infer_base_class_for_anonymous_controllers = false
   config.include FactoryGirl::Syntax::Methods

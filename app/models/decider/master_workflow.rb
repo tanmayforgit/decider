@@ -1,4 +1,4 @@
-module Decider
+module Nayati
   class MasterWorkflow
     attr_reader :name
     def initialize(name)
@@ -9,19 +9,19 @@ module Decider
     end
 
     def operation_names
-      Decider::OperationConfiguration.operation_names(self.name)
+      Nayati::OperationConfiguration.operation_names(self.name)
     end
 
     def add_operation(operation_name)
-      Decider::OperationConfiguration.add_operation_unless_present(self.name, operation_name)
+      Nayati::OperationConfiguration.add_operation_unless_present(self.name, operation_name)
     end
 
     def save!
-      Decider::OperationConfiguration.add_workflow_unless_present(self.name)
+      Nayati::OperationConfiguration.add_workflow_unless_present(self.name)
     end
 
     def exists?
-      Decider::OperationConfiguration.workflow_names.include?(@name_as_sym)
+      Nayati::OperationConfiguration.workflow_names.include?(@name_as_sym)
     end
 
     def valid?
@@ -36,7 +36,7 @@ module Decider
 
     class << self
       def all_workflow_names
-        Decider::OperationConfiguration.workflow_names
+        Nayati::OperationConfiguration.workflow_names
       end
 
     end
@@ -56,12 +56,12 @@ module Decider
     end
 
     def operation_exists?(operation_name)
-      operation_namespace = ::Decider::NameBasedConstantable.name_as_namespace(operation_name.to_s)
+      operation_namespace = ::Nayati::NameBasedConstantable.name_as_namespace(operation_name.to_s)
       operation_names.include?(operation_namespace)
     end
 
     def validate_name
-      @errors << 'Name already exists' if Decider::OperationConfiguration.workflow_exists?(self.name)
+      @errors << 'Name already exists' if Nayati::OperationConfiguration.workflow_exists?(self.name)
     end
   end
 end

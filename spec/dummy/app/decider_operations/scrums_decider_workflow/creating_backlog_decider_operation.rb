@@ -1,5 +1,5 @@
-module ScrumsDeciderWorkflow
-  class CreatingBacklogDeciderOperation < Decider::OperationImplementerBase
+module ScrumsNayatiWorkflow
+  class CreatingBacklogNayatiOperation < Nayati::OperationImplementerBase
     def initialize(operation_context, result)
       @operation_context = operation_context
       @result = result
