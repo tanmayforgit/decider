@@ -144,12 +144,12 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  nayati!
   factory_girl
   mysql2
+  nayati!
   pry
   rails (~> 5.2.0)
   rspec-rails
 
 BUNDLED WITH
-   1.16.1
+   2.1.4
