@@ -1,5 +1,5 @@
-require_relative '../../../lib/decider/workflow_runner'
-require_relative '../../../lib/decider/workflow_results/base'
+require_relative '../../../lib/nayati/workflow_runner'
+require_relative '../../../lib/nayati/workflow_results/base'
 module Decider
   RSpec.describe WorkflowRunner do
             #                initial_operation

@@ -1,4 +1,4 @@
-require 'decider/workflow_runner'
+require 'nayati/workflow_runner'
 class
   def initialize()
   end

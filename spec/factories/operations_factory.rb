@@ -1,6 +1,6 @@
 FactoryGirl.define do
-  factory :decider_operation, class: Decider::Operation do
-    association :workflow, :factory => :decider_workflow
+  factory :nayati_operation, class: Decider::Operation do
+    association :workflow, :factory => :nayati_workflow
     name 'some_operation'
   end
 end

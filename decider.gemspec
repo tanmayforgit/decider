@@ -1,11 +1,11 @@
 $:.push File.expand_path("lib", __dir__)
 
 # Maintain your gem's version:
-require "decider/version"
+require "nayati/version"
 
 # Describe your gem and declare its dependencies:
 Gem::Specification.new do |s|
-  s.name        = "decider"
+  s.name        = "nayati"
   s.version     = Decider::VERSION
   s.authors     = ["Tanmay Tupe"]
   s.email       = ["tanmaytupe@gmail.com"]

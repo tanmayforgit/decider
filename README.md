@@ -5,7 +5,7 @@ Decider is a Rails engine that helps in creating a clean and maintainable multi 
 Add this line to your application's Gemfile:
 
 ```ruby
-gem 'decider'
+gem 'nayati'
 ```
 
 And then execute:
@@ -15,11 +15,11 @@ $ bundle
 
 Or install it yourself as:
 ```bash
-$ gem install decider
+$ gem install nayati
 ```
 First run the install generator
 ```bash
-$ rails generator decider:install
+$ rails generator nayati:install
 ```
 
 ## How to use
@@ -32,7 +32,7 @@ notify_number_of_late_marks
 After installing, first generate a workflow e.g. attendance_management in example above.
 
 ```bash
-$ rails generate decider:workflow attendance_management
+$ rails generate nayati:workflow attendance_management
 ```
 
 This will create a service class AttendanceManagementDeciderService which you are supposed to call in controller.
@@ -40,12 +40,12 @@ This will create a service class AttendanceManagementDeciderService which you ar
 Service classes do following tasks
 1. Find which workflow is supposed to run based on information passed from controller.
 2. Create context that will be passed to every operation.
-3. Return result object. By convention, this will return instance Decider::WorkflowResults::Base object. You can have your own result object. Just create a class in app/models/decider/workflow_results/#{workflow_name}.rb and decider will pass instance of this class to operation classes.
+3. Return result object. By convention, this will return instance Decider::WorkflowResults::Base object. You can have your own result object. Just create a class in app/models/nayati/workflow_results/#{workflow_name}.rb and nayati will pass instance of this class to operation classes.
 
 Next we will create our operation classes. RESPONSIBILITIES OF A SINGLE OPERATION CLASS SHOULD NOT CHANGE ACROSS TENANTS. Rather this is how I define operation class. It is that piece of functionality which does not change across tenant. to create an operation class belonging to a workflow run
 
 ```bash
-$ rails generate decider:operation attendance_management marking_attendance
+$ rails generate nayati:operation attendance_management marking_attendance
 ```
 
 Next we will configure a workflow for a tenant. Lets say we are going to identify this workflow by name 'tenant_1_attendance_marking'. This tenant is a school and needs only marking_attendance and late_marking piece of functionality and if marking_attendance fails, you are supposed to nottify to register first. Decider comes with a method to configure a workflow in database.
@@ -68,9 +68,9 @@ Decider::Workflow.create_or_update_from_workflow_json(workflow_sequence_hash)
 ```
 
 Next we will have a look at operation class
-decider:operation will generate operation class in app/decider_operations/{workflow_name}/ directory which will automatically be initialized with operation_context that you created in decider service class and result object when you call the 'call' method on service class.
+nayati:operation will generate operation class in app/nayati_operations/{workflow_name}/ directory which will automatically be initialized with operation_context that you created in nayati service class and result object when you call the 'call' method on service class.
 
-By default decider will first call to_fail? method of a operation class. If this method returns true, decider will call perform_failure and next operation will be after_failure operation configured in database. If this method returns false, decider will call perform method and next operation will be after_success operation configured in database. Decider will stop when there is no operation to run.
+By default nayati will first call to_fail? method of a operation class. If this method returns true, nayati will call perform_failure and next operation will be after_failure operation configured in database. If this method returns false, nayati will call perform method and next operation will be after_success operation configured in database. Decider will stop when there is no operation to run.
 
 ## Sample
 

@@ -9,7 +9,7 @@ module Decider
       desc "generate a operation"
 
       def check_installation
-        raise 'Run rails generate decider:install first' unless File.exists?("#{Rails.root}/config/operations.yml")
+        raise 'Run rails generate nayati:install first' unless File.exists?("#{Rails.root}/config/operations.yml")
       end
 
       def generate_operation
@@ -34,7 +34,7 @@ module Decider
         workflow_constant_name = Decider::NameBasedConstantable.name_as_constant(workflow_namespace)
         operation_constant_name = Decider::NameBasedConstantable.name_as_constant(operation_namespace)
 
-        operation_file_path = "#{Rails.root}/app/decider_operations/#{workflow_namespace}_decider_workflow/#{operation_namespace}_decider_operation.rb"
+        operation_file_path = "#{Rails.root}/app/nayati_operations/#{workflow_namespace}_nayati_workflow/#{operation_namespace}_nayati_operation.rb"
 
 
         copy_file "operation_template.txt", operation_file_path

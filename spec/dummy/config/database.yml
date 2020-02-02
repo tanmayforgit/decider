@@ -2,7 +2,7 @@ development:
   adapter: mysql2
   encoding: utf8
   reconnect: false
-  database: decider_development
+  database: nayati_development
   pool: 5
   username: root
   password: root
@@ -10,7 +10,7 @@ test:
   adapter: mysql2
   encoding: utf8
   reconnect: false
-  database: decider_test
+  database: nayati_test
   pool: 5
   username: root
   password: root
@@ -18,7 +18,7 @@ production:
   adapter: mysql2
   encoding: utf8
   reconnect: false
-  database: decider_prduction
+  database: nayati_prduction
   pool: 5
   username: ENV['DECIDER_DB_USERNAME']
   password: ENV['DECIDER_DB_PASSWORD']

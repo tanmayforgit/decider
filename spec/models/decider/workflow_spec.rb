@@ -2,7 +2,7 @@ require 'pry'
 module Decider
   RSpec.describe Workflow, type: :model do
     describe '#name_space' do
-      let(:workflow) { create(:decider_workflow)}
+      let(:workflow) { create(:nayati_workflow)}
 
       subject { workflow.name_space }
       it 'Returens proper name space' do
@@ -11,7 +11,7 @@ module Decider
     end
 
     describe '#klass_name' do
-      let(:workflow) { create(:decider_workflow)}
+      let(:workflow) { create(:nayati_workflow)}
 
       subject { workflow.klass_name }
       it 'Returns proper name space' do
@@ -20,7 +20,7 @@ module Decider
     end
 
     describe '#klass' do
-      let(:workflow) { create(:decider_workflow)}
+      let(:workflow) { create(:nayati_workflow)}
 
       subject { workflow.klass }
 
@@ -44,7 +44,7 @@ module Decider
     end
 
     describe '#specific_result_obj_klass_constant_name' do
-      let(:workflow) { create(:decider_workflow) }
+      let(:workflow) { create(:nayati_workflow) }
       subject { workflow.specific_result_obj_klass_constant_name }
 
       it 'Returns specific result object class name' do
@@ -54,7 +54,7 @@ module Decider
 
     describe '#result_obj_klass' do
       context 'Specific result class is present' do
-        let(:workflow) { create(:decider_workflow) }
+        let(:workflow) { create(:nayati_workflow) }
         let(:result_klass) { double }
         let(:result_klass_instance) { double }
         subject { workflow.result_obj }
@@ -66,7 +66,7 @@ module Decider
       end
 
       context 'Specific result class is absent' do
-        let(:workflow) { create(:decider_workflow) }
+        let(:workflow) { create(:nayati_workflow) }
         subject { workflow.result_obj }
         it 'Returns that class' do
           expect(subject).to be_an_instance_of(Decider::WorkflowResults::Base)
@@ -75,7 +75,7 @@ module Decider
     end
 
     describe '#specific_result_klass_present?' do
-      let(:workflow) { create(:decider_workflow)}
+      let(:workflow) { create(:nayati_workflow)}
       subject { workflow.specific_result_klass_present? }
 
       it 'Returns false if specific_result_klass is present?' do
@@ -84,7 +84,7 @@ module Decider
     end
 
     describe '#result_obj' do
-      let(:workflow) { create(:decider_workflow) }
+      let(:workflow) { create(:nayati_workflow) }
       context 'Workflow specific result object is present' do
         it 'Returns that specific result object' do
           # allow(Object).to receive(:const_defined?).with("Result"workflow.name)

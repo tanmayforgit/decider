@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    decider (0.1.0)
+    nayati (0.1.0)
       activerecord (>= 3.2.0)
 
 GEM
@@ -144,7 +144,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  decider!
+  nayati!
   factory_girl
   mysql2
   pry

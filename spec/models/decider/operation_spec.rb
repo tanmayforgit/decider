@@ -1,7 +1,7 @@
 module Decider
   RSpec.describe Operation do
     describe '#operation_implementer_klass_name' do
-      let(:operation) { create(:decider_operation)}
+      let(:operation) { create(:nayati_operation)}
       subject { operation.operation_implementer_klass_name }
 
       it 'Returns workflow namespaced klass name' do
@@ -10,7 +10,7 @@ module Decider
     end
 
     describe '#build_implementer' do
-      let(:operation) { create(:decider_operation)}
+      let(:operation) { create(:nayati_operation)}
       let(:context) { {} }
       let(:workflow_result_object) { double }
       let(:implementer_klass) { double }
@@ -34,7 +34,7 @@ module Decider
     end
 
     describe '#validatoin' do
-      let(:workflow) { create(:decider_workflow) }
+      let(:workflow) { create(:nayati_workflow) }
       let(:operation) { Decider::Operation.new }
       subject { operation.valid? }
 

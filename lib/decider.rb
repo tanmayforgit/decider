@@ -1,4 +1,4 @@
-require "decider/engine"
+require "nayati/engine"
 
 module Decider
   # Your code goes here...
