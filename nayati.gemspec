@@ -18,7 +18,7 @@ Gem::Specification.new do |s|
   s.test_files = Dir["spec/**/*"]
 
   s.add_development_dependency 'rails', '~> 5.2', '>= 5.2.0'
-  s.add_runtime_dependency 'activerecord', '~> 3.2', '>= 3.2.0'
+  s.add_runtime_dependency 'activerecord'
   s.add_development_dependency 'mysql2', '~> 0'
   s.add_development_dependency 'rspec-rails', '~> 0'
   s.add_development_dependency 'factory_girl', '~> 0'

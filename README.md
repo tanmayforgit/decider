@@ -51,6 +51,7 @@ $ rails generate nayati:operation attendance_management marking_attendance
 Next we will configure a workflow for a tenant. Lets say we are going to identify this workflow by name 'tenant_1_attendance_marking'. This tenant is a school and needs only marking_attendance and late_marking piece of functionality and if marking_attendance fails, you are supposed to nottify to register first. Nayati comes with a method to configure a workflow in database.
 
 workflow_hash corresponding to sequence mentioned in above paragraph would be
+```ruby
 workflow_sequence_hash = {
   name: 'marking_attendance',
   workflow_identifier: 'tenant_1_attendance_marking',
@@ -61,6 +62,7 @@ workflow_sequence_hash = {
     { name: 'late_marking'}
   ]
 }
+```
 
 You can put this workflow in database by calling
 ```ruby
