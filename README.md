@@ -23,7 +23,7 @@ $ rails generator nayati:install
 ```
 ## How an app is structured using nayati
 
-![Image of nayati structure](https://drive.google.com/open?id=1FUbxWEFI8pdtlKycpDH8G0rAn9sH2oc0)
+![Image of nayati structure](https://github.com/tanmayforgit/nayati/blob/master/Nayati%20structure.png)
 
 ## How to use
 Nayati is meant to help in handling functional changes across tenants in your application.
