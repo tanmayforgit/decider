@@ -71,14 +71,20 @@ You can put this workflow in database by calling
 Nayati::Workflow.create_or_update_from_workflow_json(workflow_sequence_hash)
 ```
 
-Later on if you want to print sequence of a workflow already in database you can do
+If you want to print sequence of a workflow already in database you can do
 
 ```ruby
 workflow_record.entire_workflow_as_hash
 ```
 
+This will return a hash with a structure same as the one we used for creating workflow.
+
+
 Next we will have a look at operation class
-nayati:operation generator will generate operation class in app/nayati_operations/{workflow_name}/ directory which will automatically be initialized with operation_context that you created in nayati service class and result object. Result object is returned at the end of call method.
+
+nayati:operation generator will generate operation class in app/nayati_operations/{workflow_name}/ directory which will automatically be initialized with operation_context that you created in nayati service class and result object.
+
+Operation class implements to_fail?, perform_failure, perform methods. In our example marking_attendance operation should implement to_fail? in such a way that it returns false if fingerprint does not match. If not implemented, to_fail? by default returns false.
 
 By default nayati will first call to_fail? method of a operation class starting with initial operation. If this method returns true, nayati will call perform_failure and next operation will be after_failure operation configured in database. If this method returns false, nayati will call perform method and next operation will be after_success operation configured in database. Nayati will stop when there is no operation to run.
 
