@@ -1,5 +1,5 @@
 # Nayati
-Nayati is a Rails engine that helps in creating a clean and maintainable multi tenant Rails application. Creating multitenant application with Nayati allows you to have models that do just database talking and business logic gets handled by a layer I like to call 'Operation layer'. The sequence in which these operations get executed for a tenant is put in database.
+Nayati is a Rails engine that helps in creating a clean and maintainable multi tenant Rails application. Creating multitenant application with Nayati allows you to have models that do just database talking and don't hold much business logic. Business logic gets handled by a layer I like to call 'Operation layer'. The sequence in which these operations get executed for a tenant is put in database.
 
 ## Installation
 Add this line to your application's Gemfile:
@@ -21,12 +21,14 @@ First run the install generator
 ```bash
 $ rails generator nayati:install
 ```
+## How an app is structured using nayati
+
+![Image of nayati structure](https://drive.google.com/open?id=1FUbxWEFI8pdtlKycpDH8G0rAn9sH2oc0)
 
 ## How to use
 Nayati is meant to help in handling functional changes across tenants in your application.
 Lets say you have a attendance system. Your company installs devices which have fingerprint scanning functionality. Your clients vary from
-scools, gym, private companies. Now lets say you have 5 'operations' that can happen
-in this workflow viz marking_attendace, notify_parents, give_extra_marks_for_consistency, notify_sitting_position, late_marking, notify_missing_registration
+scools, gym, private companies. Now lets say you have 5 'operations' that can happen in this workflow viz., marking_attendace, notify_parents, give_extra_marks_for_consistency, notify_sitting_position, late_marking, notify_missing_registration
 notify_number_of_late_marks
 
 After installing, first generate a workflow e.g. attendance_management in example above.
@@ -69,13 +71,16 @@ You can put this workflow in database by calling
 Nayati::Workflow.create_or_update_from_workflow_json(workflow_sequence_hash)
 ```
 
+Later on if you want to print sequence of a workflow already in database you can do
+
+```ruby
+workflow_record.entire_workflow_as_hash
+```
+
 Next we will have a look at operation class
-nayati:operation will generate operation class in app/nayati_operations/{workflow_name}/ directory which will automatically be initialized with operation_context that you created in nayati service class and result object when you call the 'call' method on service class.
+nayati:operation generator will generate operation class in app/nayati_operations/{workflow_name}/ directory which will automatically be initialized with operation_context that you created in nayati service class and result object. Result object is returned at the end of call method.
 
-By default nayati will first call to_fail? method of a operation class. If this method returns true, nayati will call perform_failure and next operation will be after_failure operation configured in database. If this method returns false, nayati will call perform method and next operation will be after_success operation configured in database. Nayati will stop when there is no operation to run.
+By default nayati will first call to_fail? method of a operation class starting with initial operation. If this method returns true, nayati will call perform_failure and next operation will be after_failure operation configured in database. If this method returns false, nayati will call perform method and next operation will be after_success operation configured in database. Nayati will stop when there is no operation to run.
 
-## Sample
-
-You can find a sample multitenant application here.
 ## License
 The gem is available as open source under the terms of the [MIT License](https://opensource.org/licenses/MIT).
